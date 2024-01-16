@@ -10,13 +10,7 @@ const nextConfig = {
       'i.ibb.co',
       'scontent.fotp8-1.fna.fbcdn.net',
     ],
-    // Make ENV
-    unoptimized: true,
-  },
-  experimental: {
-    appDir: true,
   },
 };
 
-// module.exports = withTM(nextConfig);
 module.exports = nextConfig;
