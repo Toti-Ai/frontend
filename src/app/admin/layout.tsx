@@ -32,14 +32,10 @@ export default function AdminLayout(props: DashboardLayoutProps) {
   // functions for changing the states from components
   const { onOpen } = useDisclosure();
 
-  useEffect(() => {
-    window.document.documentElement.dir = 'ltr';
-  });
-
   const bg = useColorModeValue('secondaryGray.300', 'navy.900');
 
   return (
-    <Box h="100vh" w="100vw" bg={bg}>
+    <Box h="100dvh" w="100vw" bg={bg}>
       <SidebarContext.Provider
         value={{
           toggleSidebar,
