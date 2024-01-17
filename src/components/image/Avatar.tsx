@@ -6,13 +6,7 @@ interface AvatarImageProps extends ComponentProps<typeof Image> {
   showBorder?: boolean
 }
 
-export function NextAvatar ({
-  src,
-  showBorder,
-  alt,
-  style,
-  ...props
-}: AvatarImageProps) {
+export function NextAvatar({ src, showBorder, alt, style, ...props }: AvatarImageProps) {
   const { colorMode } = useColorMode()
 
   return (

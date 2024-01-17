@@ -1,4 +1,4 @@
-'use client';
+'use client'
 /* eslint-disable */
 /*!
   _   _  ___  ____  ___ ________  _   _   _   _ ___   

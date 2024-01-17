@@ -1,11 +1,11 @@
+'use client'
 // Chakra imports
-import { Portal, Box, useDisclosure } from '@chakra-ui/react'
-import Footer from 'components/footer/FooterAdmin'
+import { Box, useDisclosure, useColorModeValue } from '@chakra-ui/react'
 // Layout components
 import Navbar from 'components/navbar/NavbarAdmin'
 import Sidebar from 'components/sidebar/Sidebar'
 import { SidebarContext } from 'contexts/SidebarContext'
-import { PropsWithChildren, useEffect, useState } from 'react'
+import { PropsWithChildren, useState } from 'react'
 import routes from 'routes'
 import { getActiveNavbar, getActiveNavbarText, getActiveRoute } from 'utils/navigation'
 
@@ -22,12 +22,10 @@ export default function AdminLayout(props: DashboardLayoutProps) {
   // functions for changing the states from components
   const { onOpen } = useDisclosure()
 
-  useEffect(() => {
-    window.document.documentElement.dir = 'ltr'
-  })
+  const bg = useColorModeValue('secondaryGray.300', 'navy.900')
 
   return (
-    <Box>
+    <Box h='100dvh' w='100vw' bg={bg}>
       <SidebarContext.Provider
         value={{
           toggleSidebar,
@@ -35,6 +33,7 @@ export default function AdminLayout(props: DashboardLayoutProps) {
         }}
       >
         <Sidebar routes={routes} display='none' {...rest} />
+
         <Box
           float='right'
           minHeight='100vh'
@@ -49,25 +48,19 @@ export default function AdminLayout(props: DashboardLayoutProps) {
           transitionProperty='top, bottom, width'
           transitionTimingFunction='linear, linear, ease'
         >
-          <Portal>
-            <Box>
-              <Navbar
-                onOpen={onOpen}
-                logoText={'Horizon UI Dashboard PRO'}
-                brandText={getActiveRoute(routes)}
-                secondary={getActiveNavbar(routes)}
-                message={getActiveNavbarText(routes)}
-                fixed={fixed}
-                {...rest}
-              />
-            </Box>
-          </Portal>
+          <Box mx='auto' py={{ base: '20px', md: 30 }} px={50} height={'100%'} pe='20px'>
+            <Navbar
+              onOpen={onOpen}
+              logoText={'Horizon UI Dashboard PRO'}
+              brandText={getActiveRoute(routes)}
+              secondary={getActiveNavbar(routes)}
+              message={getActiveNavbarText(routes)}
+              fixed={fixed}
+              {...rest}
+            />
 
-          <Box mx='auto' p={{ base: '20px', md: '30px' }} pe='20px' minH='100vh' pt='50px'>
+            {/* page content */}
             {children}
-          </Box>
-          <Box>
-            <Footer />
           </Box>
         </Box>
       </SidebarContext.Provider>

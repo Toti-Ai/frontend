@@ -14,11 +14,7 @@ import {
   DrawerCloseButton
 } from '@chakra-ui/react'
 import Content from 'components/sidebar/components/Content'
-import {
-  renderThumb,
-  renderTrack,
-  renderView
-} from 'components/scrollbar/Scrollbar'
+import { renderThumb, renderTrack, renderView } from 'components/scrollbar/Scrollbar'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 
 // Assets
@@ -34,17 +30,14 @@ interface SidebarProps extends SidebarResponsiveProps {
   [x: string]: any
 }
 
-function Sidebar (props: SidebarProps) {
+function Sidebar(props: SidebarProps) {
   const { routes } = props
 
-  let variantChange = '0.2s linear'
-  let shadow = useColorModeValue(
-    '14px 17px 40px 4px rgba(112, 144, 176, 0.08)',
-    'unset'
-  )
+  const variantChange = '0.2s linear'
+  const shadow = useColorModeValue('14px 17px 40px 4px rgba(112, 144, 176, 0.08)', 'unset')
   // Chakra Color Mode
-  let sidebarBg = useColorModeValue('white', 'navy.800')
-  let sidebarMargins = '0px'
+  const sidebarBg = useColorModeValue('white', 'navy.800')
+  const sidebarMargins = '0px'
 
   // SIDEBAR
   return (
@@ -53,7 +46,7 @@ function Sidebar (props: SidebarProps) {
         bg={sidebarBg}
         transition={variantChange}
         w='300px'
-        h='100vh'
+        h='100dvh'
         m={sidebarMargins}
         minH='100%'
         overflowX='hidden'
@@ -74,9 +67,9 @@ function Sidebar (props: SidebarProps) {
 
 // FUNCTIONS
 
-export function SidebarResponsive (props: SidebarResponsiveProps) {
-  let sidebarBackgroundColor = useColorModeValue('white', 'navy.800')
-  let menuColor = useColorModeValue('gray.400', 'white')
+export function SidebarResponsive(props: SidebarResponsiveProps) {
+  const sidebarBackgroundColor = useColorModeValue('white', 'navy.800')
+  const menuColor = useColorModeValue('gray.400', 'white')
   // // SIDEBAR
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
@@ -101,11 +94,7 @@ export function SidebarResponsive (props: SidebarResponsiveProps) {
       <Drawer
         isOpen={isOpen}
         onClose={onClose}
-        placement={
-          isWindowAvailable() && window.document.documentElement.dir === 'rtl'
-            ? 'right'
-            : 'left'
-        }
+        placement={isWindowAvailable() && window.document.documentElement.dir === 'rtl' ? 'right' : 'left'}
         finalFocusRef={btnRef}
       >
         <DrawerOverlay />

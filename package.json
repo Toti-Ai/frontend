@@ -19,6 +19,7 @@
 		"@types/jest": "^25.2.3",
 		"@types/react-dom": "^18.2.18",
 		"apexcharts": "^3.45.1",
+		"eslint-plugin-prettier": "^5.1.3",
 		"framer-motion": "^10.18.0",
 		"next": "^14.0.4",
 		"react": "18.2.0",
@@ -39,7 +40,8 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint",
+		"next:lint": "next lint",
+		"lint": "yarn eslint . --cache",
 		"predeploy": "yarn run build"
 	},
 	"browserslist": {
@@ -55,13 +57,21 @@
 		]
 	},
 	"devDependencies": {
-		"@types/node": "^20.11.4",
+		"@types/node": "^20.11.5",
 		"@types/react": "18.2.48",
 		"@types/react-calendar": "^4.1.0",
 		"@types/react-table": "^7.7.19",
-		"eslint": "^8.23.0",
-		"eslint-config-next": "^14.0.4",
-		"gh-pages": "^6.1.1"
+		"@typescript-eslint/eslint-plugin": "6.19.0",
+		"@typescript-eslint/parser": "6.19.0",
+		"eslint": "8.56.0",
+		"eslint-config-next": "14.0.4",
+		"eslint-config-prettier": "9.1.0",
+		"eslint-import-resolver-alias": "1.1.2",
+		"eslint-import-resolver-typescript": "3.6.1",
+		"eslint-plugin-import": "2.29.1",
+		"eslint-plugin-unused-imports": "^3.0.0",
+		"gh-pages": "^6.1.1",
+		"prettier": "3.2.4"
 	},
 	"resolutions": {
 		"@types/react": "18.0.31",

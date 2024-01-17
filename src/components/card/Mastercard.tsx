@@ -7,11 +7,7 @@ import Card from 'components/card/Card'
 import bgMastercard from 'img/dashboards/Debit.png'
 import { RiMastercardFill } from 'react-icons/ri'
 
-export default function Banner (props: {
-  exp: string
-  cvv: string
-  number: string
-}) {
+export default function Banner(props: { exp: string; cvv: string; number: string }) {
   const { exp, cvv, number, ...rest } = props
 
   // Chakra Color Mode

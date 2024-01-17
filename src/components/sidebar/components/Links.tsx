@@ -1,130 +1,91 @@
-/* eslint-disable */
+import { Box, Button, Collapse, Flex, HStack, Text, useColorModeValue } from '@chakra-ui/react'
+import { IRoute } from 'types/navigation'
+import { usePathname } from 'next/navigation'
+import { FunctionComponent, memo, useCallback, useState } from 'react'
 
-// chakra imports
-import { Box, Flex, HStack, Text, useColorModeValue } from '@chakra-ui/react';
-import Link from 'next/link';
-import { IRoute } from 'types/navigation';
-import { usePathname } from 'next/navigation';
-import { useCallback } from 'react';
+interface LinkItemProps {
+  route: IRoute
+  isActive: boolean
+}
+
+const LinkItem: FunctionComponent<LinkItemProps> = memo(({ route, isActive }) => {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <Box
+        width={'100%'}
+        pl={2}
+        onClick={() => {
+          setOpen(prev => !prev)
+        }}
+      >
+        <HStack spacing={isActive ? '22px' : '26px'} py='5px' ps='10px'>
+          <Flex w='100%' alignItems='center' justifyContent='center'>
+            <Box
+
+            // color={isActive ? activeIcon : textColor} me='18px'
+            >
+              {route.icon}
+            </Box>
+            <Text
+              me='auto'
+              // color={isActive ? activeColor : textColor}
+
+              fontWeight={isActive ? 'bold' : 'normal'}
+            >
+              {route.name}
+            </Text>
+          </Flex>
+          <Box
+            h='36px'
+            w='4px'
+            // bg={isActive ? brandColor : 'transparent'}
+
+            borderRadius='5px'
+          />
+        </HStack>
+      </Box>
+
+      <Collapse in={open}>
+        <Box pl={2}>
+          {route?.children?.map((item, index) => {
+            return <LinkItem key={index} isActive route={item} />
+          })}
+        </Box>
+      </Collapse>
+    </>
+  )
+})
 
 interface SidebarLinksProps {
-  routes: IRoute[];
+  routes: IRoute[]
 }
 
 export function SidebarLinks(props: SidebarLinksProps) {
-  const { routes } = props;
+  const { routes } = props
 
   //   Chakra color mode
-  const pathname = usePathname();
+  const pathname = usePathname()
 
-  let activeColor = useColorModeValue('gray.700', 'white');
-  let inactiveColor = useColorModeValue(
-    'secondaryGray.600',
-    'secondaryGray.600',
-  );
-  let activeIcon = useColorModeValue('brand.500', 'white');
-  let textColor = useColorModeValue('secondaryGray.500', 'white');
-  let brandColor = useColorModeValue('brand.500', 'brand.400');
+  let activeColor = useColorModeValue('gray.700', 'white')
+  let inactiveColor = useColorModeValue('secondaryGray.600', 'secondaryGray.600')
+  let activeIcon = useColorModeValue('brand.500', 'white')
+  let textColor = useColorModeValue('secondaryGray.500', 'white')
+  let brandColor = useColorModeValue('brand.500', 'brand.400')
 
   // verifies if routeName is the one active (in browser input)
   const activeRoute = useCallback(
     (routeName: string) => {
-      return pathname?.includes(routeName);
+      return pathname?.includes(routeName)
     },
-    [pathname],
-  );
+    [pathname]
+  )
 
   // this function creates the links from the secondary accordions (for example auth -> sign-in -> default)
-  const createLinks = (routes: IRoute[]) => {
-    return routes.map((route, index: number) => {
-      if (
-        route.layout === '/admin' ||
-        route.layout === '/auth' ||
-        route.layout === '/rtl'
-      ) {
-        return (
-          <Link key={index} href={route.layout + route.path}>
-            {route.icon ? (
-              <Box>
-                <HStack
-                  spacing={
-                    activeRoute(route.path.toLowerCase()) ? '22px' : '26px'
-                  }
-                  py="5px"
-                  ps="10px"
-                >
-                  <Flex w="100%" alignItems="center" justifyContent="center">
-                    <Box
-                      color={
-                        activeRoute(route.path.toLowerCase())
-                          ? activeIcon
-                          : textColor
-                      }
-                      me="18px"
-                    >
-                      {route.icon}
-                    </Box>
-                    <Text
-                      me="auto"
-                      color={
-                        activeRoute(route.path.toLowerCase())
-                          ? activeColor
-                          : textColor
-                      }
-                      fontWeight={
-                        activeRoute(route.path.toLowerCase())
-                          ? 'bold'
-                          : 'normal'
-                      }
-                    >
-                      {route.name}
-                    </Text>
-                  </Flex>
-                  <Box
-                    h="36px"
-                    w="4px"
-                    bg={
-                      activeRoute(route.path.toLowerCase())
-                        ? brandColor
-                        : 'transparent'
-                    }
-                    borderRadius="5px"
-                  />
-                </HStack>
-              </Box>
-            ) : (
-              <Box>
-                <HStack
-                  spacing={
-                    activeRoute(route.path.toLowerCase()) ? '22px' : '26px'
-                  }
-                  py="5px"
-                  ps="10px"
-                >
-                  <Text
-                    me="auto"
-                    color={
-                      activeRoute(route.path.toLowerCase())
-                        ? activeColor
-                        : inactiveColor
-                    }
-                    fontWeight={
-                      activeRoute(route.path.toLowerCase()) ? 'bold' : 'normal'
-                    }
-                  >
-                    {route.name}
-                  </Text>
-                  <Box h="36px" w="4px" bg="brand.400" borderRadius="5px" />
-                </HStack>
-              </Box>
-            )}
-          </Link>
-        );
-      }
-    });
-  };
-  //  BRAND
-  return <>{createLinks(routes)}</>;
+  return routes.map((route, index: number) => {
+    return <LinkItem key={index} isActive route={route} />
+  })
 }
 
-export default SidebarLinks;
+export default memo(SidebarLinks)
