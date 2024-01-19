@@ -47,7 +47,7 @@ const LinkItem: FunctionComponent<LinkItemProps> = memo(({ route, isActive }) =>
         </HStack>
       </Box>
 
-      <Collapse in={open}>
+      <Collapse in={open} animateOpacity>
         <Box pl={2}>
           {route?.children?.map((item, index) => {
             return <LinkItem key={index} isActive route={item} />
